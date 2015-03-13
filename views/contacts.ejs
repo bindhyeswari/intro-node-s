@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts</title>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/contacts');
+        xhr.setRequestHeader('accept', 'application/json');
+        xhr.addEventListener('readystatechange', function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var obj = JSON.parse(xhr.responseText);
+                    console.log(obj[0].name);
+                }
+            }
+
+        });
+        xhr.send();
+
+        var contact = { name: 'Jui Awate',
+            email: 'jui@mailinator.com',
+            location: 'sunnyvale' };
+
+
+
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open('POST', '/contacts');
+        xhr2.setRequestHeader('accept', 'application/json');
+        xhr2.setRequestHeader('content-type', 'application/json');
+        xhr2.addEventListener('readystatechange', function () {
+            if( xhr2.readyState === 4 && xhr2.status === 200 ) {
+                var obj = JSON.parse(xhr2.responseText);
+                console.log(obj);
+            }
+        });
+        xhr2.send(JSON.stringify(contact));
+
+    </script>
+</head>
+<body>
+    <h1>Hello World from contacts!</h1>
+</body>
+</html>
